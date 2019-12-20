@@ -1,7 +1,9 @@
 package com.github.springboot.controller;
 
+import com.github.springboot.domain.Result;
 import com.github.springboot.domain.User;
 import com.github.springboot.repository.UserRepository;
+import com.github.springboot.util.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,13 +17,13 @@ public class UserController {
     private UserRepository userRepository;
 
     @PostMapping()
-    public User userAdd(@RequestBody User user){
-        return userRepository.save(user);
+    public Result<User> userAdd(@RequestBody User user){
+        return MessageUtil.success(userRepository.save(user));
     }
 
     @GetMapping("list")
-    public List<User> userList() {
-        return userRepository.findAll();
+    public Result<User> userList() {
+        return MessageUtil.success(userRepository.findAll());
     }
 
     @GetMapping("{id}")
